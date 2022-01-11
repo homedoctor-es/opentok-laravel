@@ -11,12 +11,6 @@
             "email": "tom@tomctech.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/Hitlabs/OpenTok-PHP-SDK"
-        }
-    ],
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": ">=5.5",
@@ -27,6 +21,7 @@
             "Tomcorbett\\OpentokLaravel\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
  
