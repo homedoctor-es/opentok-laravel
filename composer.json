@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "~5.0",
+        "illuminate/support": ">=5.5",
         "opentok/opentok": "2.4.*"
     },
     "autoload": {
