@@ -2,23 +2,33 @@
     "name": "homedoctor-es/opentok-laravel",
     "description": "A laravel bundle for the OpenTok PHP SDK",
     "keywords": ["opentok", "streaming", "video streaming"],
-    "homepage": "https://github.com/tomcorbett/opentok-laravel",
+    "homepage": "https://github.com/homedoctor-es/opentok-laravel",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Thomas Corbett",
-            "email": "tom@tomctech.com"
+            "name": "Homedoctor es",
+            "email": "rayner@homedoctor.es"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": ">=5.5",
-        "opentok/opentok": "4.0.0"
+        "php": "^7.2|^8.0",
+        "illuminate/support": ">=8.0",
+        "opentok/opentok": "^4.8.0"
     },
     "autoload": {
         "psr-4": {
-            "Tomcorbett\\OpentokLaravel\\": "src/"
+            "HomedoctorEs\\OpentokLaravel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HomedoctorEs\\OpentokLaravel\\ServiceProvider"
+            ],
+            "aliases": {
+                "OpentokApi": "HomedoctorEs\\OpentokLaravel\\Facades\\OpentokApi"
+            }
         }
     },
     "minimum-stability": "dev",

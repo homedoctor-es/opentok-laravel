@@ -1,43 +1,51 @@
-<?php namespace Tomcorbett\OpentokLaravel;
+<?php namespace HomedoctorEs\OpentokLaravel;
 
+use HomedoctorEs\OpentokLaravel\Services\OpenTok;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use OpenTok\OpenTok;
 
-class ServiceProvider extends BaseServiceProvider {
+class ServiceProvider extends BaseServiceProvider
+{
 
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
+    /**
+     * {@inheritDoc}
+     */
+    public function provides(): array
+    {
+        return [
+            'opentok',
+            Opentok::class,
+        ];
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom($this->configPath(), 'opentok');
+    }
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		$this->mergeConfigFrom($this->configPath(), 'opentok');
-	}
-
+    /**
+     * {@inheritDoc}
+     */
     public function boot()
     {
         $this->publishes([$this->configPath() => config_path('opentok.php')], 'config');
 
-        $this->app->singleton('OpentokApi', function($app) {
-			return new OpenTok(
-				$app['config']->get('opentok')['api_key'],
-				$app['config']->get('opentok')['api_secret']
-			);
-		});
+        $this->app->singleton('OpentokApi', function ($app) {
+            return $this->getOpenTokClient($app['config']);
+        });
     }
 
-	protected function configPath()
-	{   
-		return __DIR__ . '/../config/opentok.php';
-	}   
+    private function getOpenTokClient($config): OpenTok
+    {
+        $config = $config->get('opentok');
+        return OpenTok::make($config['api_key'], $config['api_secret']);
+    }
+
+    private function configPath(): string
+    {
+        return __DIR__ . '/../config/opentok.php';
+    }
 
 }
